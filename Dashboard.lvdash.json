@@ -1,0 +1,291 @@
+{
+  "datasets": [
+    {
+      "name": "1d467c20",
+      "displayName": "online_retail",
+      "queryLines": [
+        "select * from workspace.retail_peru_db.sales_silver;\r\n",
+        "\r\n"
+      ],
+      "catalog": "workspace",
+      "schema": "default"
+    },
+    {
+      "name": "ed81fa89",
+      "displayName": "sales_silver",
+      "queryLines": [
+        "SELECT * FROM workspace.retail_peru_db.sales_silver"
+      ]
+    },
+    {
+      "name": "4f0e375f",
+      "displayName": "sales_bronze",
+      "queryLines": [
+        "SELECT * FROM workspace.retail_peru_db.sales_bronze"
+      ]
+    },
+    {
+      "name": "b251fb2c",
+      "displayName": "sales_gold_performance",
+      "queryLines": [
+        "SELECT * FROM workspace.retail_peru_db.sales_gold_performance"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "c0d79a2a",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "datos-capa-bronze-errores-datos-nulos",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4f0e375f",
+                  "fields": [
+                    {
+                      "name": "distrito",
+                      "expression": "`distrito`"
+                    },
+                    {
+                      "name": "tienda_nombre",
+                      "expression": "`tienda_nombre`"
+                    },
+                    {
+                      "name": "metodo_pago",
+                      "expression": "`metodo_pago`"
+                    },
+                    {
+                      "name": "id_transaccion",
+                      "expression": "`id_transaccion`"
+                    },
+                    {
+                      "name": "monto_total",
+                      "expression": "`monto_total`"
+                    },
+                    {
+                      "name": "fecha_venta",
+                      "expression": "`fecha_venta`"
+                    },
+                    {
+                      "name": "ingestion_timestamp",
+                      "expression": "`ingestion_timestamp`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showDescription": false,
+                "showTitle": true,
+                "title": "Datos de la capa Bronze (errores de datos y nulos)"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "distrito"
+                  },
+                  {
+                    "fieldName": "tienda_nombre"
+                  },
+                  {
+                    "fieldName": "metodo_pago"
+                  },
+                  {
+                    "fieldName": "id_transaccion"
+                  },
+                  {
+                    "fieldName": "monto_total"
+                  },
+                  {
+                    "fieldName": "fecha_venta"
+                  },
+                  {
+                    "fieldName": "ingestion_timestamp"
+                  },
+                  {
+                    "fieldName": "count(*)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "b2881f0a",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# <span style=\"text-align:center;display:block;\">Dashboard Arquitectura de Medallon (Bonze-Silver-Gold)</span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "37d956ef",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b251fb2c",
+                  "fields": [
+                    {
+                      "name": "distrito",
+                      "expression": "`distrito`"
+                    },
+                    {
+                      "name": "sum(total_ventas_pen)",
+                      "expression": "SUM(`total_ventas_pen`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showDescription": false,
+                "showTitle": false
+              },
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "distrito",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "natural-order"
+                    }
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(total_ventas_pen)"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative",
+                      "reverse": false
+                    },
+                    "axis": {
+                      "hideTitle": false,
+                      "hideLabels": false,
+                      "hideGrid": false
+                    }
+                  },
+                  "secondary": {
+                    "fields": [],
+                    "scale": {
+                      "type": "quantitative",
+                      "reverse": false
+                    },
+                    "axis": {
+                      "hideTitle": false,
+                      "hideLabels": false,
+                      "hideGrid": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "bb60c61a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b251fb2c",
+                  "fields": [
+                    {
+                      "name": "tienda_nombre",
+                      "expression": "`tienda_nombre`"
+                    },
+                    {
+                      "name": "sum(total_ventas_pen)",
+                      "expression": "SUM(`total_ventas_pen`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "tienda_nombre",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_ventas_pen)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 7
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "ea0db5fc",
+      "displayName": "Global Filters",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
